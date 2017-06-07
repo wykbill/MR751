@@ -36,7 +36,7 @@ public class WordCountDemo {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, FileNotFoundException {
 
-        Scanner in = new Scanner(new FileReader("wordcount.txt"));
+        Scanner in = new Scanner(new FileReader("medium-test.txt"));
 
         List<Pair<String, Integer>> source = new ArrayList<>();
 
@@ -48,8 +48,11 @@ public class WordCountDemo {
         in.close();
 
         // create job using mapper defined above and reducer from RedLib
-        Job<String, Integer> job = new Job<>(source, new WordCountMapper(), new IntegerSum(), 4);
+        Job<String, Integer> job = new Job<>(source, new WordCountMapper(), new IntegerSum(), 16);
 
+        long startTime = System.nanoTime();
         job.execute();
+        long endTime = System.nanoTime();
+        System.out.println((endTime - startTime) * 0.000001);
     }
 }
